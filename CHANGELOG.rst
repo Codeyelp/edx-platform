@@ -5,6 +5,9 @@ These are notable changes in edx-platform.  This is a rolling list of changes,
 in roughly chronological order, most recent first.  Add your entries at or near
 the top.  Include a label indicating the component affected.
 
+Blades: Allow multiple strings as the correct answer to a string response question.
+BLD-474.
+
 Blades: Add template for checkboxes response to studio. BLD-193.
 
 Blades: Video player:
