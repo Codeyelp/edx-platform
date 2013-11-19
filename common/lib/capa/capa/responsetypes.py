@@ -946,22 +946,34 @@ class NumericalResponse(LoncapaResponse):
 
 
 class StringResponse(LoncapaResponse):
+    '''
+    This response type allows one or more answers.
 
+    Example:
+
+        # One answer
+        = answer
+
+        # Multiple answers
+        = answer_1
+        or= answer_2
+        or= answer_3
+    '''
     response_tag = 'stringresponse'
     hint_tag = 'stringhint'
     allowed_inputfields = ['textline']
     required_attributes = ['answer']
     max_inputfields = 1
-    correct_answer = None
+    correct_answer = []
 
     def setup_response(self):
-        self.correct_answers = [contextualize_text(answer, self.context).strip()
+        self.correct_answer = [contextualize_text(answer, self.context).strip()
             for answer in self.xml.get('answer').split('_or_')]
 
     def get_score(self, student_answers):
         '''Grade a string response '''
         student_answer = student_answers[self.answer_id].strip()
-        correct = self.check_string(self.correct_answers, student_answer)
+        correct = self.check_string(self.correct_answer, student_answer)
         return CorrectMap(self.answer_id, 'correct' if correct else 'incorrect')
 
     def check_string(self, expected, given):
@@ -984,7 +996,7 @@ class StringResponse(LoncapaResponse):
         return hints_to_show
 
     def get_answers(self):
-        return {self.answer_id: ' <b>or</b> '.join(self.correct_answers)}
+        return {self.answer_id: ' <b>or</b> '.join(self.correct_answer)}
 
 #-----------------------------------------------------------------------------
 
