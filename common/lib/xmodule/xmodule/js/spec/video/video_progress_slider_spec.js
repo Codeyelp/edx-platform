@@ -220,7 +220,7 @@
             });
 
             // Turned off test due to flakiness (30.10.2013).
-            xit('trigger seek event', function() {
+            it('trigger seek event', function() {
                 runs(function () {
                     videoProgressSlider.onStop(
                         jQuery.Event('stop'), { value: 20 }
